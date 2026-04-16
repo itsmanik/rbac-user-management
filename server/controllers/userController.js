@@ -48,3 +48,39 @@ export const deleteUser = async (req, res) => {
         res.status(500).json({ message: "Error deleting user" });
     }
 };
+
+// Get own profile
+export const getMyProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).select("-password");
+        return res.json(user);
+    } catch (err) {
+        res.status(500).json({ message: "Error fetching profile" });
+    }
+};
+
+// Update own profile
+export const updateMyProfile = async (req, res) => {
+    try {
+        const { name, password } = req.body;
+        const user = await User.findById(req.user._id).select("+password");
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        // Update fields
+        if (name) user.name = name;
+        if (password) user.password = password; // Will be hashed pre-save
+        await user.save();
+        res.json({
+            message: "Profile updated",
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+            },
+        });
+    } catch (err) {
+        res.status(500).json({ message: "Error updating profile" });
+    }
+};
