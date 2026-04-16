@@ -3,11 +3,13 @@ import connectDB from "./utils/database.js";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import cors from "cors";
 
 const app = express();
 dotenv.config();
 
 app.use(express.json());
+app.use(cors());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
