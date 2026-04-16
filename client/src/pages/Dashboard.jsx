@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const Dashboard = () => {
     const user = JSON.parse(localStorage.getItem("user"));
 
@@ -7,6 +9,7 @@ const Dashboard = () => {
             <p>Welcome {user?.name}</p>
             <p>Role: {user?.role}</p>
             {user?.role === "admin" && <p>You are an admin</p>}
+            {user?.role === "admin" && <Link to="/users">Go to Users</Link>}
         </div>
     );
 };
