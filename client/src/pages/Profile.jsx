@@ -5,15 +5,15 @@ const Profile = () => {
   const [user, setUser] = useState(null);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  // fetch profile
   const fetchProfile = async () => {
     try {
       const res = await api.get("/users/me");
       setUser(res.data);
       setName(res.data.name);
     } catch (err) {
-      alert("Error fetching profile");
+      setMessage("Error fetching profile.");
     }
   };
 
@@ -21,41 +21,71 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
-  // update profile
   const handleUpdate = async () => {
+    setMessage("");
+
     try {
       await api.put("/users/me", { name, password });
-
-      alert("Profile updated");
+      setMessage("Profile updated successfully.");
+      setPassword("");
       fetchProfile();
     } catch (err) {
-      alert("Error updating profile");
+      setMessage("Error updating profile.");
     }
   };
 
-  if (!user) return <p>Loading...</p>;
+  if (!user) {
+    return <p className="muted">Loading profile...</p>;
+  }
 
   return (
-    <div>
-      <h2>My Profile</h2>
+    <section className="card profile-grid">
+      <div>
+        <p className="eyebrow">Account</p>
+        <h2>My Profile</h2>
+        <p className="muted">Keep your account information current and secure.</p>
 
-      <p>Email: {user.email}</p>
-      <p>Role: {user.role}</p>
+        <div className="info-list">
+          <p>
+            <span>Email:</span> {user.email}
+          </p>
+          <p>
+            <span>Role:</span> {user.role}
+          </p>
+        </div>
+      </div>
 
-      <input
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Name"
-      />
+      <div>
+        <label className="field-label" htmlFor="name">
+          Display Name
+        </label>
+        <input
+          id="name"
+          className="input"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Name"
+        />
 
-      <input
-        type="password"
-        placeholder="New Password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
+        <label className="field-label" htmlFor="newPassword">
+          New Password
+        </label>
+        <input
+          id="newPassword"
+          className="input"
+          type="password"
+          placeholder="Leave blank to keep current password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+        />
 
-      <button onClick={handleUpdate}>Update</button>
-    </div>
+        {message && <p className={message.includes("Error") ? "error-text" : "success-text"}>{message}</p>}
+
+        <button className="primary-btn" onClick={handleUpdate}>
+          Update Profile
+        </button>
+      </div>
+    </section>
   );
 };
 
