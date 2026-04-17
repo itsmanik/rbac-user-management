@@ -1,5 +1,6 @@
 :root {
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
   color: #10243e;
   background: #f4f7fb;
 }
@@ -21,11 +22,15 @@ p {
 
 .app-shell {
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: 280px 1fr;
 }
 
 .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100vh;
+  overflow-y: auto;
   background: linear-gradient(180deg, #0f2744 0%, #122f52 100%);
   color: #f3f7ff;
   padding: 32px 24px;
@@ -55,6 +60,8 @@ p {
 }
 
 .main-content {
+  margin-left: 280px;
+  min-height: 100vh;
   padding: 32px;
   display: grid;
   gap: 16px;
@@ -242,6 +249,10 @@ p {
 .profile-grid input {
   margin-bottom: 0.5rem;
   margin-top: 0.2rem;
+}
+
+.profile-grid .eyebrow {
+  margin-bottom: 0.5rem;
 }
 
 .profile-grid button {
