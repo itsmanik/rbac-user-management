@@ -69,6 +69,7 @@ p {
   box-shadow: 0 8px 24px #12376410;
   display: grid;
   gap: 12px;
+  margin: 0.3rem;
 }
 
 .eyebrow {
@@ -81,6 +82,7 @@ p {
 
 .muted {
   color: #566b89;
+  margin-bottom: 1.5rem;
 }
 
 .user-card {
@@ -235,6 +237,15 @@ p {
 .profile-grid {
   grid-template-columns: 1fr 1fr;
   gap: 24px;
+}
+
+.profile-grid input {
+  margin-bottom: 0.5rem;
+  margin-top: 0.2rem;
+}
+
+.profile-grid button {
+  margin-top: 0.5rem;
 }
 
 .info-list {

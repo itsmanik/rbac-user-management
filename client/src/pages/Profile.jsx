@@ -11,13 +11,13 @@ const Profile = () => {
     try {
       const res = await api.get("/users/me");
       setUser(res.data);
-      setName(res.data.name);
-    } catch (err) {
+    } catch {
       setMessage("Error fetching profile.");
     }
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchProfile();
   }, []);
 
@@ -29,7 +29,7 @@ const Profile = () => {
       setMessage("Profile updated successfully.");
       setPassword("");
       fetchProfile();
-    } catch (err) {
+    } catch {
       setMessage("Error updating profile.");
     }
   };
@@ -46,6 +46,9 @@ const Profile = () => {
         <p className="muted">Keep your account information current and secure.</p>
 
         <div className="info-list">
+          <p>
+            <span>Name:</span> {user.name}
+          </p>
           <p>
             <span>Email:</span> {user.email}
           </p>
@@ -74,7 +77,7 @@ const Profile = () => {
           id="newPassword"
           className="input"
           type="password"
-          placeholder="Leave blank to keep current password"
+          placeholder="New password"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
