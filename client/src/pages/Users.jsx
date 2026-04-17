@@ -165,13 +165,13 @@ const Users = () => {
                         <button className="secondary-btn" onClick={() => startEdit(user)} disabled={isSubmitting}>
                           Edit
                         </button>
-                        <button
+                        {user.role != "admin" && <button
                           className="danger-btn"
                           onClick={() => handleDeactivateUser(user._id)}
                           disabled={isSubmitting || user.status === "inactive"}
                         >
                           Deactivate
-                        </button>
+                        </button>}
                       </div>
                     </td>
                   </tr>
