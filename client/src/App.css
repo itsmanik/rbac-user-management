@@ -269,11 +269,11 @@ p {
 }
 
 @media (max-width: 900px) {
-  .app-shell {
-    grid-template-columns: 1fr;
-  }
-
   .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    overflow: visible;
     gap: 18px;
   }
 
@@ -283,6 +283,8 @@ p {
   }
 
   .main-content {
+    margin-left: 0;
+    min-height: auto;
     padding: 20px;
   }
 }
